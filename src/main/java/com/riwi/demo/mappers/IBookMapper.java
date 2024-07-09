@@ -17,35 +17,33 @@ import com.riwi.demo.api.request.BookRequest;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface IBookMapper {
 
-    @Mapping(source = "reservation", target = "reservation", qualifiedByName = "mapIdToEntity")
-    @Mapping(source = "loans", target = "loans", qualifiedByName = "mapIdToEntityList")
+    @Mapping(source = "reservation", target = "reservation", qualifiedByName = "mapIdToReservation")
+    @Mapping(source = "loans", target = "loans", qualifiedByName = "mapIdToLoans")
     @Mapping(target = "id", ignore = true)
     Book requestToEntity(BookRequest book);
 
-    @Mapping(source = "reservation", target = "reservation", qualifiedByName = "mapIdToEntity")
+    @Mapping(source = "reservation", target = "reservation", qualifiedByName = "mapIdToReservation")
     BookResponse entityToResponse(Book book);
 
-    @Named("mapIdToEntityList")
-    default List<Loan> mapIdToEntityList(Long id) {
-        if (id != null) {
+    @Named("mapIdToLoans")
+    default List<Loan> mapIdToLoans(Long id) {
+        if (id == null) return new ArrayList<>();
             Loan loans = new Loan();
+            loans.setId(id);
             List<Loan> loanList = new ArrayList<>();
             loanList.add(loans);
             return loanList;
-        }
-        return new ArrayList<>();
     }
 
-    @Named("mapIdToEntity")
-    default List<Reservation> mapIdToEntity(Long id) {
+    @Named("mapIdToReservation")
+    default List<Reservation> mapIdToReservation(Long id) {
         if (id != null) {
             Reservation reservation = new Reservation();
-            List<Reservation> reservations = new ArrayList<>();
             reservation.setId(id);
+            List<Reservation> reservations = new ArrayList<>();
             reservations.add(reservation);
             return reservations;
         }
         return new ArrayList<>();
-
     }
 }
