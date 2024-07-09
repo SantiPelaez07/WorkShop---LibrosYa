@@ -2,7 +2,7 @@ package com.riwi.demo.infraestructure.abstract_service;
 
 import org.springframework.data.domain.Page;
 
-import com.riwi.demo.enums.SortType;
+import com.riwi.demo.utils.enums.SortType;
 
 public interface CrudDefault <RQ, RS, ID> {
 

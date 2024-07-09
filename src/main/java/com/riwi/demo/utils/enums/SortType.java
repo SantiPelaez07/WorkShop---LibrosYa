@@ -1,4 +1,4 @@
-package com.riwi.demo.enums;
+package com.riwi.demo.utils.enums;
 
 public enum SortType {
     NONE,

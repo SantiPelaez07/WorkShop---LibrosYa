@@ -24,7 +24,5 @@ public class UserRequest {
     private String fullName;
     @NotBlank(message = "El rol del usuario es requerido")
     private String role;
-    private Long id_reservations;
-    private Long id_loans;
 
 }

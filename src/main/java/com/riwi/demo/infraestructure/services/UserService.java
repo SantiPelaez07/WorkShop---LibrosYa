@@ -8,9 +8,9 @@ import com.riwi.demo.api.request.UserRequest;
 import com.riwi.demo.api.response.UserResponse;
 import com.riwi.demo.domain.entities.UserEntity;
 import com.riwi.demo.domain.repositories.UserRepository;
-import com.riwi.demo.enums.SortType;
 import com.riwi.demo.infraestructure.abstract_service.IUserService;
-import com.riwi.demo.mappers.UserMapper;
+import com.riwi.demo.mappers.IUserMapper;
+import com.riwi.demo.utils.enums.SortType;
 
 import lombok.AllArgsConstructor;
 
@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
+    private final IUserMapper userMapper;
 
     @Override
     public UserResponse create(UserRequest request) {
@@ -37,7 +37,7 @@ public class UserService implements IUserService {
         UserEntity user = this.findId(id);
         user = this.userMapper.RequestToEntity(request);
         user.setId(id);
-        return this.userMapper.userToDto(user);
+        return this.userMapper.userToDto(this.userRepository.save(user));
     }
 
     @Override
@@ -56,8 +56,8 @@ public class UserService implements IUserService {
 
         switch(sort){
             case NONE -> pagination = PageRequest.of(page, size);
-            case ASC -> pagination = PageRequest.of(page, size, Sort.by(FIEL_BY_SORT).ascending());
-            case DESC -> pagination = PageRequest.of(page, size, Sort.by(FIEL_BY_SORT).descending());
+            case ASC -> pagination = PageRequest.of(page, size, Sort.by(FIELD_BY_SORT).ascending());
+            case DESC -> pagination = PageRequest.of(page, size, Sort.by(FIELD_BY_SORT).descending());
         }
 
         return this.userRepository.findAll(pagination).map(this.userMapper::userToDto);

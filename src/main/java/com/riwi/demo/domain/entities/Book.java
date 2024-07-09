@@ -37,7 +37,7 @@ public class Book {
 
     /* Relation with Reservation entity */
     @OneToMany(mappedBy = "books", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
-    private Reservation reservation;
+    private List<Reservation> reservation;
 
     /* Relation with Loan entity */
     @OneToMany(mappedBy = "book", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)

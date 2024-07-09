@@ -5,5 +5,5 @@ import com.riwi.demo.api.response.ReservationResponse;
 
 public interface IReservationService extends CrudDefault <ReservationRequest, ReservationResponse, Long>{
 
-    public final String FIEL_BY_SORT = "date";
+    public final String FIELD_BY_SORT = "date";
 }

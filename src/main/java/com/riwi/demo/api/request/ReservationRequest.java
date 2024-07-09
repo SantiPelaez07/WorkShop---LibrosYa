@@ -1,7 +1,6 @@
 package com.riwi.demo.api.request;
 
 import java.time.LocalDate;
-import com.riwi.demo.domain.entities.UserEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,5 +17,5 @@ public class ReservationRequest {
     private LocalDate date;
     private String status;
     private Long books;
-    private UserEntity user;
+    private Long user;
 }

@@ -12,7 +12,7 @@ import com.riwi.demo.domain.entities.UserEntity;
 
 /* Configuración inicial para el mapeo */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface UserMapper {
+public interface IUserMapper {
     @Mapping(target = "reservations", ignore = true)
     @Mapping(target = "loans", ignore = true)
     UserResponse userToDto(UserEntity user);

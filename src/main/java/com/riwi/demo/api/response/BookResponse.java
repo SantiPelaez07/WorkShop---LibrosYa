@@ -22,6 +22,6 @@ public class BookResponse {
     private int publication_year;
     private String genre;
     private String isbn;
-    private Reservation reservation;
+    private List<Reservation> reservation;
     private List<Loan> loans;
 }
