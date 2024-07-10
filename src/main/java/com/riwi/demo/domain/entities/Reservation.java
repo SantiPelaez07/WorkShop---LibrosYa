@@ -1,7 +1,6 @@
 package com.riwi.demo.domain.entities;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +32,7 @@ public class Reservation {
     /* Relation with book entity */
     @ManyToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
-    private List<Book> books;
+    private Book books;
 
     /* Relation with User entity */
 

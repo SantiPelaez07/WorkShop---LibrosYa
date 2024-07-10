@@ -3,6 +3,7 @@ package com.riwi.demo.infraestructure.services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import com.riwi.demo.api.request.LoanRequest;
 import com.riwi.demo.api.response.LoanResponse;
@@ -14,6 +15,7 @@ import com.riwi.demo.utils.enums.SortType;
 
 import lombok.AllArgsConstructor;
 
+@Service
 @AllArgsConstructor
 public class LoanService implements ILoanService {
     

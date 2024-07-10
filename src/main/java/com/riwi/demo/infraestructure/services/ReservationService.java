@@ -4,28 +4,35 @@ package com.riwi.demo.infraestructure.services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import com.riwi.demo.api.request.ReservationRequest;
 import com.riwi.demo.api.response.ReservationResponse;
+import com.riwi.demo.domain.entities.Book;
 import com.riwi.demo.domain.entities.Reservation;
 import com.riwi.demo.domain.repositories.ReservationRepository;
+import com.riwi.demo.infraestructure.abstract_service.IBookService;
 import com.riwi.demo.infraestructure.abstract_service.IReservationService;
+import com.riwi.demo.mappers.IBookMapper;
 import com.riwi.demo.mappers.IReservationMapper;
 import com.riwi.demo.utils.enums.SortType;
 
 import lombok.AllArgsConstructor;
-
+@Service
 @AllArgsConstructor
 public class ReservationService implements IReservationService{
     
     private final ReservationRepository reservationRepository;
     private final IReservationMapper reservationMapper;
+    private final IBookService bookService;
+    private final IBookMapper bookMapper;
     
     
     @Override
     public ReservationResponse create(ReservationRequest request) {
         Reservation reservation = this.reservationMapper.requestToEntity(request);
-        reservation.setBooks(this.reservationMapper.mapIdToList(request.getBooks()));
+        Book getBook = this.bookMapper.responseToEntity(this.bookService.getById(request.getBooks()));
+        reservation.setBooks(getBook); 
         reservation.setUser(this.reservationMapper.mapIdToEntity(request.getUser()));
         return this.reservationMapper.entityToResponse(this.reservationRepository.save(reservation));
     }
@@ -40,7 +47,7 @@ public class ReservationService implements IReservationService{
         Reservation reservation = this.findId(id);
         reservation = this.reservationMapper.requestToEntity(request);
         reservation.setId(id);
-        reservation.setBooks(this.reservationMapper.mapIdToList(request.getBooks()));
+        // reservation.setBooks(this.reservationMapper.mapIdToList(request.getBooks()));
         reservation.setUser(this.reservationMapper.mapIdToEntity(request.getUser()));
         return this.reservationMapper.entityToResponse(this.reservationRepository.save(reservation));
     }

@@ -22,8 +22,10 @@ public interface IBookMapper {
     @Mapping(target = "id", ignore = true)
     Book requestToEntity(BookRequest book);
 
-    @Mapping(source = "reservation", target = "reservation", qualifiedByName = "mapIdToReservation")
+    // @Mapping(target = "reservation", ignore = true)
     BookResponse entityToResponse(Book book);
+
+    Book responseToEntity(BookResponse book);
 
     @Named("mapIdToLoans")
     default List<Loan> mapIdToLoans(Long id) {

@@ -1,5 +1,6 @@
 package com.riwi.demo.infraestructure.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,7 +20,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class BookService implements IBookService {
 
+    @Autowired
     private final BookRepository bookRepository;
+    @Autowired
     private final IBookMapper bookMapper;
 
     @Override
@@ -64,7 +67,7 @@ public class BookService implements IBookService {
         return this.bookRepository.findAll(pagination).map(this.bookMapper::entityToResponse);
     }
 
-    private Book findBook (Long id){
+    public Book findBook (Long id){
         return this.bookRepository.findById(id).orElseThrow();
     }
 
